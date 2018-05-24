@@ -676,10 +676,10 @@ later = function() {
       for (var i = 0, len = results.length; i < len; i++) {
         var result = results[i];
         if(sched.tz){
-          offset = moment.tz.zone(sched.tz).parse(startDate);
-          if(result instanceof Array) { // Sometimes an array is returned. We don't want that. 
+          if(result instanceof Array) { // Sometimes an array is returned. We don't want that.
             result = new Date(result[0])
           }
+          offset = moment.tz.zone(sched.tz).parse(result);
           result.setTime(result.getTime() + offset*60*1000);
         }
         results[i] = Object.prototype.toString.call(result) === "[object Array]" ? [ cleanDate(result[0]), cleanDate(result[1]) ] : cleanDate(result);
