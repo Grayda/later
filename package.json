@@ -32,5 +32,8 @@
   "license": "MIT",
   "scripts": {
     "test": "./node_modules/.bin/mocha test/**/*-test.js --reporter dot"
+  },
+  "dependencies": {
+    "moment-timezone": "^0.5.17"
   }
 }

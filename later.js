@@ -635,7 +635,11 @@ later = function() {
       if (!startDate || !startDate.getTime()) throw new Error("Invalid start date.");
       var offset = 0;
       if(sched.tz){
-        offset = moment.tz.zone(sched.tz).parse(startDate);
+        try {
+          offset = moment.tz.zone(sched.tz).parse(startDate);
+        } catch(ex) {
+          offset = 0
+        }
         startDate.setTime(startDate.getTime() - offset*60*1000);
         if(endDate){
           endDate.setTime(endDate.getTime() - offset*60*1000);
@@ -679,7 +683,11 @@ later = function() {
           if(result instanceof Array) { // Sometimes an array is returned. We don't want that.
             result = new Date(result[0])
           }
-          offset = moment.tz.zone(sched.tz).parse(result);
+          try {
+            offset = moment.tz.zone(sched.tz).parse(result);
+          } catch(ex) {
+            offset = 0
+          }
           result.setTime(result.getTime() + offset*60*1000);
         }
         results[i] = Object.prototype.toString.call(result) === "[object Array]" ? [ cleanDate(result[0]), cleanDate(result[1]) ] : cleanDate(result);
